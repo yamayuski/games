@@ -1,0 +1,20 @@
+{
+  "name": "yamayu-games",
+  "type": "module",
+  "license": "Apache-2.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@babylonjs/core": "^7.5.0",
+    "@babylonjs/gui": "^7.5.0",
+    "@babylonjs/loaders": "^7.5.0",
+    "@babylonjs/materials": "^7.5.0",
+    "@types/node": "^20.12.8",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11"
+  }
+}

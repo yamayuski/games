@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "alwaysStrict": true,
+    "esModuleInterop": true,
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "types": [
+      "vite/client"
+    ]
+  }
+}
