@@ -6,6 +6,8 @@
 
 import { Engine } from "@babylonjs/core/Engines/engine";
 import { Scene } from "@babylonjs/core/scene";
+import "@babylonjs/core/Loading/loadingScreen";
+import "@babylonjs/core/Materials/standardMaterial";
 
 import "./lib.css";
 

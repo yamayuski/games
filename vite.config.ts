@@ -10,6 +10,7 @@ export default defineConfig({
         'capylabs-01': resolve(__dirname, 'capylabs-01/index.html'),
         'many-tree': resolve(__dirname, 'many-tree/index.html'),
         pong: resolve(__dirname, 'pong/index.html'),
+        'god-camera': resolve(__dirname, 'god-camera/index.html'),
         'skybox-simulator': resolve(__dirname, 'skybox-simulator/index.html'),
         'tic-tac-toe': resolve(__dirname, 'tic-tac-toe/index.html'),
       },
