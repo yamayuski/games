@@ -166,80 +166,75 @@ export class GodCameraMoveInput implements ICameraInput<GodCamera> {
     // We will not use functions for speed reasons
     const pressedKeys = Array.from(this._pressedKeys.keys());
     const camera = this.camera;
+    let rotateX = 0;
+    let rotateY = 0;
+    let moveForward = 0;
+    let moveUp = 0;
+    let moveRight = 0;
     for (let index = 0; index < pressedKeys.length; index++) {
       const inputIndex = pressedKeys[index];
 
-      {
-        // Camera rotation
-        let rotateX = 0;
-        let rotateY = 0;
-        if (this.keyBindings.keysUpRotation.indexOf(inputIndex) !== -1) {
-          rotateX -= 1;
-        }
-        if (this.keyBindings.keysDownRotation.indexOf(inputIndex) !== -1) {
-          rotateX += 1;
-        }
-        if (this.keyBindings.keysLeftRotation.indexOf(inputIndex) !== -1) {
-          rotateY -= 1;
-        }
-        if (this.keyBindings.keysRightRotation.indexOf(inputIndex) !== -1) {
-          rotateY += 1;
-        }
-
-        if (rotateX !== 0 || rotateY !== 0) {
-          // Actually rotate
-          if (rotateX !== 0 && rotateY !== 0) {
-            // Diagonal rotation
-            rotateX *= Math.SQRT1_2;
-            rotateY *= Math.SQRT1_2;
-          }
-          const rotationSpeedByFrame = ((this.parameters.rotationSpeed * camera.getScene().getEngine().getDeltaTime()) / 1000) * camera._calculateHandednessMultiplier();
-          camera.cameraRotation.x += rotateX * rotationSpeedByFrame;
-          camera.cameraRotation.y += rotateY * rotationSpeedByFrame;
-        }
+      // Camera rotation
+      if (this.keyBindings.keysUpRotation.indexOf(inputIndex) !== -1) {
+        rotateX -= 1;
+      }
+      if (this.keyBindings.keysDownRotation.indexOf(inputIndex) !== -1) {
+        rotateX += 1;
+      }
+      if (this.keyBindings.keysLeftRotation.indexOf(inputIndex) !== -1) {
+        rotateY -= 1;
+      }
+      if (this.keyBindings.keysRightRotation.indexOf(inputIndex) !== -1) {
+        rotateY += 1;
       }
 
       // Camera move
-      {
-        const baseSpeed = this.camera._computeLocalCameraSpeed() * this.parameters.baseSpeedFactor;
-        let moveForward = 0;
-        let moveUp = 0;
-        let moveRight = 0;
-
-        if (this.keyBindings.keysForward.indexOf(inputIndex) !== -1) {
-          moveForward += 1;
-        }
-        if (this.keyBindings.keysBackward.indexOf(inputIndex) !== -1) {
-          moveForward -= 1;
-        }
-        if (this.keyBindings.keysUpward.indexOf(inputIndex) !== -1) {
-          moveUp += 1;
-        }
-        if (this.keyBindings.keysDownward.indexOf(inputIndex) !== -1) {
-          moveUp -= 1;
-        }
-        if (this.keyBindings.keysRight.indexOf(inputIndex) !== -1) {
-          moveRight += 1;
-        }
-        if (this.keyBindings.keysLeft.indexOf(inputIndex) !== -1) {
-          moveRight -= 1;
-        }
-
-        if (moveForward !== 0 || moveUp !== 0 || moveRight !== 0) {
-          // Actually move
-          if (moveForward !== 0 && moveRight !== 0) {
-            // Diagonal move
-            moveForward *= Math.SQRT1_2;
-            moveRight *= Math.SQRT1_2;
-          }
-
-          const forward = camera.getDirection(Vector3.Forward());
-          camera.position.addInPlace(forward.scale(moveForward * baseSpeed));
-          const right = camera.getDirection(Vector3.Right());
-          camera.position.addInPlace(right.scale(moveRight * baseSpeed));
-          camera.position.y += moveUp * baseSpeed;
-        }
+      if (this.keyBindings.keysForward.indexOf(inputIndex) !== -1) {
+        moveForward += 1;
       }
+      if (this.keyBindings.keysBackward.indexOf(inputIndex) !== -1) {
+        moveForward -= 1;
+      }
+      if (this.keyBindings.keysUpward.indexOf(inputIndex) !== -1) {
+        moveUp += 1;
+      }
+      if (this.keyBindings.keysDownward.indexOf(inputIndex) !== -1) {
+        moveUp -= 1;
+      }
+      if (this.keyBindings.keysRight.indexOf(inputIndex) !== -1) {
+        moveRight += 1;
+      }
+      if (this.keyBindings.keysLeft.indexOf(inputIndex) !== -1) {
+        moveRight -= 1;
+      }
+    }
+
+    if (rotateX !== 0 || rotateY !== 0) {
+      // Actually rotate
+      if (rotateX !== 0 && rotateY !== 0) {
+        // Diagonal rotation
+        rotateX *= Math.SQRT1_2;
+        rotateY *= Math.SQRT1_2;
+      }
+      const rotationSpeedByFrame = ((this.parameters.rotationSpeed * camera.getScene().getEngine().getDeltaTime()) / 1000) * camera._calculateHandednessMultiplier();
+      camera.cameraRotation.x += rotateX * rotationSpeedByFrame;
+      camera.cameraRotation.y += rotateY * rotationSpeedByFrame;
+    }
+
+    if (moveForward !== 0 || moveUp !== 0 || moveRight !== 0) {
+      // Actually move
+      if (moveForward !== 0 && moveRight !== 0) {
+        // Diagonal move
+        moveForward *= Math.SQRT1_2;
+        moveRight *= Math.SQRT1_2;
+      }
+
+      const baseSpeed = this.camera._computeLocalCameraSpeed() * this.parameters.baseSpeedFactor;
+      const forward = camera.getDirection(Vector3.Forward());
+      camera.position.addInPlace(forward.scale(moveForward * baseSpeed));
+      const right = camera.getDirection(Vector3.Right());
+      camera.position.addInPlace(right.scale(moveRight * baseSpeed));
+      camera.position.y += moveUp * baseSpeed;
     }
   };
 }

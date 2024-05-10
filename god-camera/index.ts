@@ -14,7 +14,7 @@ import { GodCamera } from "./godCamera";
 
 async function createScene(engine: AbstractEngine): Promise<Scene> {
   const scene = new Scene(engine);
-  const camera = new GodCamera("ShooterCamera", new Vector3(0, 5, -10), scene);
+  const camera = new GodCamera("GodCamera", new Vector3(0, 5, -10), scene);
 
   camera.setTarget(Vector3.Zero());
   camera.attachControl(true);
